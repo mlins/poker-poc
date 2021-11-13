@@ -1,11 +1,13 @@
 require "test_helper"
 
-require "card"
-
 class TestCard < Minitest::Test
   def setup
     @high_card = Card.new(suit: :h, rank: :a)
     @low_card = Card.new(suit: :d, rank: :t)
+  end
+
+  def test_card_init
+    assert Card.new(suit: :h, rank: 2).rank == 2
   end
 
   def test_greater_than
