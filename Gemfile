@@ -1,5 +1,6 @@
 source "https://rubygems.org"
 
-gem "sinatra"
 gem "minitest"
+gem "puma"
 gem "rack-test"
+gem "sinatra"
