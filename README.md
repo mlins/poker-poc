@@ -15,3 +15,7 @@ Docker
 ## Visit
 
 http://127.0.0.1:4567/
+
+## Tests
+
+`docker run pocker-poc:latest rake test`
