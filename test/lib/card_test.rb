@@ -7,7 +7,15 @@ class TestCard < Minitest::Test
   end
 
   def test_card_init
-    assert Card.new(suit: :h, rank: 2).rank == 2
+    assert_equal(2, Card.new(suit: :h, rank: 2).rank)
+  end
+
+  def test_natural_ranks_high_ace
+    assert_equal(12, Card.new(suit: :h, rank: :a).natural_rank)
+  end
+
+  def test_natural_ranks_low_ace
+    assert_equal(0, Card.new(suit: :h, rank: :a).natural_rank(low_ace: true))
   end
 
   def test_greater_than

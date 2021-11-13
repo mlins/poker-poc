@@ -11,7 +11,13 @@ class Card
     @rank = rank
   end
 
+  def natural_rank(low_ace: false)
+    ranks = RANKS.dup
+    ranks.unshift(ranks.pop) if low_ace
+    ranks.index(rank)
+  end
+
   def <=>(other)
-    RANKS.index(rank) <=> RANKS.index(other.rank)
+    natural_rank <=> other.natural_rank
   end
 end
