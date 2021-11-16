@@ -8,6 +8,7 @@ class Round
   end
 
   def winner
-    @hands[0] > @hands[1] ? 0 : 1
+    @winner ||=
+      @hands[0] > @hands[1] ? 0 : 1
   end
 end

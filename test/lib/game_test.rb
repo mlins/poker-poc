@@ -9,4 +9,9 @@ class TestGame < Minitest::Test
     assert_equal(Hand.new("8C TS KC 9H 4S"), @game.rounds[0].hands[0])
     assert_equal(Hand.new("7D 2S 5D 3S AC"), @game.rounds[0].hands[1])
   end
+
+  def test_wins
+    assert_equal(0, @game.wins[0])
+    assert_equal(1, @game.wins[1])
+  end
 end

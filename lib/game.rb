@@ -1,6 +1,8 @@
 require "round"
 
 class Game
+  PLAYERS = 2
+
   attr_reader :rounds
 
   def initialize(data)
@@ -12,5 +14,10 @@ class Game
         Hand.new(string[15, 29])
       )
     end
+  end
+
+  def wins
+    @wins ||=
+      (0...PLAYERS).map { |player| @rounds.select { |round| round.winner == player }.count }
   end
 end
