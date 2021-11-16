@@ -10,7 +10,7 @@ class TestCard < Minitest::Test
     assert_equal(2, Card.new(suit: :h, rank: 2).rank)
   end
 
-  def test_natural_ranks
+  def test_natural_rank
     assert_equal(12, Card.new(suit: :h, rank: :a).natural_rank)
   end
 

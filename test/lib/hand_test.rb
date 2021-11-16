@@ -174,16 +174,65 @@ class TestHand < Minitest::Test
     assert_equal(Hand.new("AH").cards, happy_hand.high_card)
   end
 
-  # def test_greater_than
-  #   assert @high_hand > @low_hand
-  # end
+  def test_best_hand
+    assert_equal(:royal_flush, @high_hand.best_hand)
+    assert_equal(:high_card, @low_hand.best_hand)
+    refute_equal(:high_card, @high_hand.best_hand)
+  end
 
-  # def test_less_than
-  #   assert @low_hand < @high_hand
-  # end
+  def test_best_hand_cards
+    assert_equal(@high_hand.cards, @high_hand.best_hand_cards)
+    assert_equal(Hand.new("KC").cards, @low_hand.best_hand_cards)
+  end
 
-  # def test_equal
-  #   assert @high_hand == @high_hand
-  #   assert @low_hand == @low_hand
-  # end
+  def test_kickers
+    two_pair = Hand.new("AH AC JS JD KH")
+    pair = Hand.new("AH AC QS JD KH")
+
+    assert_equal(Hand.new("KH").cards, two_pair.kickers)
+    assert_equal(Hand.new("QS JD KH").cards, pair.kickers)
+  end
+
+  def test_natural_rank
+    assert_equal(9, @high_hand.natural_rank)
+  end
+
+  def test_greater_than
+    assert @high_hand > @low_hand
+  end
+
+  def test_less_than
+    assert @low_hand < @high_hand
+  end
+
+  def test_equal
+    assert @high_hand == @high_hand
+    assert @low_hand == @low_hand
+  end
+
+  def test_equal_natural_ranks_without_kickers
+    high_straight = Hand.new("TH JC QS KD AC")
+    low_straight = Hand.new("9H TC JS QD KC")
+
+    high_full_house = Hand.new("9H 9D KD KH KS")
+    low_full_house = Hand.new("9C 9S QD QH QS")
+
+    high_pair = Hand.new("QH QC 4S 3C AH")
+    low_pair = Hand.new("9H 9C 4S 3C AH")
+
+    assert high_straight > low_straight
+    assert high_full_house > low_full_house
+    assert high_pair > low_pair
+  end
+
+  def test_equal_natural_ranks_with_kickers
+    high_pair_1 = Hand.new("QH QC AC 8S 6D")
+    low_pair_1 = Hand.new("QD QS KD 7S 2H")
+
+    high_pair_2 = Hand.new("QH QC AC 8S 6D")
+    low_pair_2 = Hand.new("QD QS AD 8C 2H")
+
+    assert high_pair_1 > low_pair_1
+    assert high_pair_2 > low_pair_2
+  end
 end

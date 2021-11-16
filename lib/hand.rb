@@ -1,7 +1,9 @@
 class Hand
+  include Comparable
+
   attr_reader :cards
 
-  HAND_RANKS = [
+  RANKS = [
     :high_card,
     :pair,
     :two_pair,
@@ -46,7 +48,7 @@ class Hand
   end
 
   def has?(hand)
-    raise ArgumentError unless HAND_RANKS.include?(hand)
+    raise ArgumentError unless RANKS.include?(hand)
 
     !public_send(hand).empty?
   end
@@ -114,5 +116,36 @@ class Hand
 
   def high_card
     [@cards.max]
+  end
+
+  def best_hand
+    @best_hand ||= RANKS.reverse.find { |hand| has?(hand) }
+  end
+
+  def best_hand_cards
+    @best_hand_cards ||= public_send(best_hand)
+  end
+
+  def kickers
+    @kickers ||= @cards - best_hand_cards
+  end
+
+  def natural_rank
+    RANKS.index(best_hand)
+  end
+
+  def <=>(other)
+    if natural_rank == other.natural_rank
+      if best_hand_cards.max == other.best_hand_cards.max
+        unique_kickers = kickers.map(&:natural_rank) - other.kickers.map(&:natural_rank)
+        other_unique_kickers = other.kickers.map(&:natural_rank) - kickers.map(&:natural_rank)
+
+        unique_kickers.max <=> other_unique_kickers.max
+      else
+        best_hand_cards.max <=> other.best_hand_cards.max
+      end
+    else
+      natural_rank <=> other.natural_rank
+    end
   end
 end
