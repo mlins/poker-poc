@@ -150,4 +150,8 @@ class Hand
       natural_rank <=> other.natural_rank
     end
   end
+
+  def to_s
+    @cards.map { |card| "#{card.rank.to_s.upcase}#{card.suit.upcase}"}.join(" ")
+  end
 end
