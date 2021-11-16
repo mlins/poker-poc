@@ -21,7 +21,7 @@ If a highly efficient evaluator were desired, I would probably use [The Two Plus
 
 `git clone https://github.com/mlins/poker-poc.git`
 
-`cd pocker-poc`
+`cd poker-poc`
 ## Build
 
 `docker build . -t poker-poc:latest`
