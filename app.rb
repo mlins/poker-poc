@@ -1,5 +1,10 @@
+$:.unshift("lib")
+
 require "sinatra"
+require "game"
 
 get '/' do
-  "Hello World"
+  @game = Game.new(File.open("poker.txt").read)
+
+  erb :index
 end

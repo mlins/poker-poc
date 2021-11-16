@@ -12,6 +12,6 @@ class TestApp < Minitest::Test
   def test_it_says_hello_world
     get "/"
     assert last_response.ok?
-    assert_equal "Hello World", last_response.body
+    assert last_response.body.include?("Poker POC")
   end
 end
